@@ -1,6 +1,6 @@
 {
   "name": "swagger-to-sdk",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Convert a swagger to JavaScript SDK",
   "source": "src/index.js",
   "main": "dist/index.js",
@@ -28,5 +28,10 @@
     "dist/index.js",
     "dist/index.map.js",
     "dist/templates/*"
-  ]
+  ],
+  "homepage": "https://github.com/Breci/swagger-to-sdk",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Breci/swagger-to-sdk"
+  }
 }
