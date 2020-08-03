@@ -79,15 +79,44 @@ function swaggerTypeToJSDocType(schema,refs){
             return "Array"
     }
 }
+
+function generateQueryParams(params = [],refs){
+    const filteredParams =params.filter(param=>param.in === "query")
+    const map = filteredParams.reduce((reducer,param)=>{
+        if (param.schema.$ref){
+            const splitdRefName = param.schema.$ref.split("/")
+            const schemaName = splitdRefName[splitdRefName.length -1]
+            const schemaInfo = refs[schemaName]
+            
+            if (schemaInfo.type ==="object"){
+                const entries = Object.keys(schemaInfo.properties).reduce((reducer,key)=>{
+                    return {
+                        ...reducer,
+                        [key]:`${camelCase(param.name)}.${key}`
+                    }
+                },{})
+                return {
+                    ...reducer,
+                    ...entries
+                }
+            }
+        }
+        return{
+            ...reducer,
+            [param.name]: camelCase(param.name)
+        }
+    },{})
+    return map
+}
 %>
 import instance,{ generateAuthHeaders } from "../instance"
-
 
 <% paths.forEach((path)=>{ %>
     
     /**
      ** <%= path.description%><% orderParams(path.parameters || [],path.url).forEach((param)=>{ %>
      ** @param <%= camelCase(param.name)%> {<%= swaggerTypeToJSDocType(param.schema, refs)%>}<% }); %>
+     <% if(path.requestBody){%>** @param body {Object} <%}%>
     */
         
     export async function <%= path.operationId %> (<%= path.parameters? orderParams(path.parameters,path.url).map(param=>camelCase(param.name)) : ""  %> <%= path.parameters && path.requestBody ? ',' : '' %> <%= path.requestBody ? "body" : "" %>){
@@ -103,7 +132,9 @@ import instance,{ generateAuthHeaders } from "../instance"
             ...paramHeaders,
             ...authHeaders
         },
-         <%= path.parameters  && path.parameters.filter(param=>param.in ==="query").length?  'params: {' + path.parameters.filter(param=>param.in ==="query").map(param=>camelCase(param.name)).join(',')  + '},' : "" %>
+        params: {<%- Object.entries(generateQueryParams(path.parameters,refs)).map(([key,value])=>{
+            return `${key}: ${value}`
+    }) %> },
     <%= path.requestBody ? " body:  body" : "" %>
       }).then(response=>({
         data: response.data,
