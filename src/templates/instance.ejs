@@ -1,0 +1,28 @@
+import axios from "redaxios"
+import {config} from "./config"
+import { getSecurityType } from "./security"
+
+const instance = axios.create({
+  baseURL: config.API_URL
+});
+
+//TODO add interceptors for standardized response
+
+export default instance;
+
+export function generateAuthHeaders(auths = []){
+
+  return auths.reduce((reducer, authName)=>{
+    const securityType = getSecurityType(authName);
+    
+    // TODO handle other auth types
+    
+    switch (securityType){
+      case "oauth2":
+        return {
+          ...reducer,
+          "Authorization": `Bearer ${config.AUTH_TOKEN}`
+        }
+    }
+  },{})
+}

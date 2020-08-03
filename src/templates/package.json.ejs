@@ -1,0 +1,22 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "description": "<%= description || "" %>",
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
+  "scripts": {
+    "build": "microbundle --no-compress",
+    "dev": "microbundle watch"
+  },
+  "author": "Breci",
+  "license": "ISC",
+  "dependencies": {
+    "redaxios": "^0.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "microbundle": "^0.12.3"
+  }
+}

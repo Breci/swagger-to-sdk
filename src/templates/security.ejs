@@ -1,0 +1,11 @@
+const securities = <%- JSON.stringify(Object.entries(securitySchemes).reduce((reducer,[name,data])=>{
+  return {
+    ...reducer,
+    [name] : data.type
+  }
+},{}),null,2) %>;
+
+export function getSecurityType(securityName){
+  if (!securities[securityName]) return null;
+  return securities[securityName];
+}
