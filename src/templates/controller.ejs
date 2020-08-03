@@ -92,7 +92,7 @@ function generateQueryParams(params = [],refs){
                 const entries = Object.keys(schemaInfo.properties).reduce((reducer,key)=>{
                     return {
                         ...reducer,
-                        [key]:`${camelCase(param.name)}.${key}`
+                        [key]:`${camelCase(param.name)} ? ${camelCase(param.name)}.${key} : undefined`
                     }
                 },{})
                 return {
