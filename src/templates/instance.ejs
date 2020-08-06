@@ -6,10 +6,9 @@ import { getSecurityType } from "./security"
 const instance = axios.create({
   baseURL: config.API_URL,
   paramsSerializer: params => {
-    return qs.stringify(params,config.QUERY_PARAMS_ARRAY_SERIALIZER)
+    return qs.stringify(params, { arrayFormat: config.QUERY_PARAMS_ARRAY_SERIALIZER })
   }
 });
-
 
 export default instance;
 
