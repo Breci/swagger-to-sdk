@@ -1,8 +1,13 @@
 export const config = {
   API_URL: "<%= apiUrl %>",
+  QUERY_PARAMS_ARRAY_SERIALIZER: "comma",
   AUTH_TOKEN: ""
 }
 
 export function setAuthToken(token){
   config.AUTH_TOKEN = token
+}
+
+export function setQueryParamsArraySerializer(serializer){
+  config.QUERY_PARAMS_ARRAY_SERIALIZER = serializer
 }

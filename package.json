@@ -1,6 +1,6 @@
 {
   "name": "swagger-to-sdk",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Convert a swagger to JavaScript SDK",
   "source": "src/index.js",
   "main": "dist/index.js",
