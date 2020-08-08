@@ -135,7 +135,7 @@ import instance,{ generateAuthHeaders } from "../instance"
         params: {<%- Object.entries(generateQueryParams(path.parameters,refs)).map(([key,value])=>{
             return `${key}: ${value}`
     }) %> },
-    <%= path.requestBody ? " body:  body" : "" %>
+    <%= path.requestBody ? " data:  body" : "" %>
       }).then(response=>({
         data: response.data,
         statusCode: response.status
