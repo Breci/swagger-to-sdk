@@ -12,6 +12,13 @@ const instance = axios.create({
 
 export default instance;
 
+/**
+ * Manually update the API url
+ */
+export function setApiURL(url){
+  instance.defaults.baseURL = url
+}
+
 export function generateAuthHeaders(auths = []){
 
   return auths.reduce((reducer, authName)=>{
