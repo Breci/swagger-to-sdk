@@ -15,7 +15,7 @@
   "license": "ISC",
   "devDependencies": {
     "copyfiles": "^2.3.0",
-    "microbundle": "^0.12.3",
+    "microbundle": "^0.15.1",
     "rimraf": "^3.0.2"
   },
   "dependencies": {
